@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-import io.github.dbjorge1.MCDominion.Team1;
+import io.github.dbjorge1.MCDominion.Team;
 
 
 public class PlayerListener implements Listener {

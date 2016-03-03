@@ -5,12 +5,30 @@ import org.bukkit.entity.Player;
 public class TeamMember {
 
 	private Player player;
+	private Team team;
+	
+	  public TeamMember(Player p) {
+			this.player = p;
+		}
 
-	  public TeamMember(Player p){
+
+	  public TeamMember(Player p, Team t){
 	    this.player = p;
+	  
 	  }
 
-	  public Player getPlayer(){
+	
+	public Player getPlayer(){
 	    return this.player;
 	  }
+	  
+	  private Team getTeam(){
+		  return this.team;  
+	  }
+
+
+	public void setTeam(Team t) {
+		this.team = t;
+		
+	}
 }

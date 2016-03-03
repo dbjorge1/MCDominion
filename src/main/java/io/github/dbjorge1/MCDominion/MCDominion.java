@@ -22,16 +22,16 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.github.dbjorge1.MCDominion.Team1;
-import io.github.dbjorge1.MCDominion.Team2;
+import io.github.dbjorge1.MCDominion.Team;
+
 
 
 
 public final class MCDominion extends JavaPlugin {
 
 	CapturePoint cp;
-	Team1 t1 = new Team1();
-	Team2 t2 = new Team2();
+	Team t1 = new Team();
+	Team t2 = new Team();
 	
 	Plugin plugin = getProvidingPlugin(this.getClass());
 	@Override
@@ -58,9 +58,9 @@ public final class MCDominion extends JavaPlugin {
     		} else {
     			Player player = (Player) sender;
     			if(args[1].equalsIgnoreCase("team1")){
-    				t1.addPlayer(player);
+    				t1.addPlayer(new TeamMember(player));
     			} else if(args[1].equalsIgnoreCase("team2")){
-    				t2.addPlayer(player);
+    				t2.addPlayer(new TeamMember(player));
     			} else{
     				player.sendMessage("Wrong team argument, choose <team1> or <team2>");
     			}
