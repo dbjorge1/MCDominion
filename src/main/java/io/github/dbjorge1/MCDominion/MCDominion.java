@@ -15,14 +15,14 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginLogger;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.github.dbjorge1.MCDominion.Team;
+import io.github.dbjorge1.MCDominion.*;
 
 
 
@@ -33,14 +33,23 @@ public final class MCDominion extends JavaPlugin {
 	Team t1 = new Team();
 	Team t2 = new Team();
 	
-	Plugin plugin = getProvidingPlugin(this.getClass());
+	
+	
+	
+	
 	@Override
     public void onEnable() {
+		
 		getLogger().info("onEnable has been invoked!");
-		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+		registerEvents();
     }
     
-    
+    public void registerEvents(){
+    	PluginManager pm = getServer().getPluginManager();
+    	pm.registerEvents(new BlockListener(), this);
+    	pm.registerEvents(new PlayerListener(), this);
+    	
+    }
 
 	@Override
     public void onDisable() {
@@ -112,7 +121,7 @@ public final class MCDominion extends JavaPlugin {
 
 
     public void saveInventory(Player p) throws IOException {
-        File f = new File(plugin.getDataFolder().getAbsolutePath(), p.getName() + ".yml");
+        File f = new File(this.getDataFolder().getAbsolutePath(), p.getName() + ".yml");
         FileConfiguration c = YamlConfiguration.loadConfiguration(f);
         c.set("inventory.armor", p.getInventory().getArmorContents());
         c.set("inventory.content", p.getInventory().getContents());
@@ -121,7 +130,7 @@ public final class MCDominion extends JavaPlugin {
 
     @SuppressWarnings("unchecked")
     public void restoreInventory(Player p) throws IOException {
-        File f = new File(plugin.getDataFolder().getAbsolutePath(), p.getName() + ".yml");
+        File f = new File(this.getDataFolder().getAbsolutePath(), p.getName() + ".yml");
         FileConfiguration c = YamlConfiguration.loadConfiguration(f);
         ItemStack[] content = ((List<ItemStack>) c.get("inventory.armor")).toArray(new ItemStack[0]);
         p.getInventory().setArmorContents(content);
