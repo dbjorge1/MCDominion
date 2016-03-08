@@ -22,7 +22,7 @@ public class TeamMember {
 	    return this.player;
 	  }
 	  
-	  private Team getTeam(){
+	public Team getTeam(){
 		  return this.team;  
 	  }
 
@@ -31,4 +31,6 @@ public class TeamMember {
 		this.team = t;
 		
 	}
+	
+
 }

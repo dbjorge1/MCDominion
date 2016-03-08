@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -22,7 +23,10 @@ import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.github.dbjorge1.MCDominion.*;
+import io.github.dbjorge1.MCDominion.CmdExecute.AddPlayers;
+import io.github.dbjorge1.MCDominion.CmdExecute.SetCpPoint;
+
+
 
 
 
@@ -42,6 +46,9 @@ public final class MCDominion extends JavaPlugin {
 		
 		getLogger().info("onEnable has been invoked!");
 		registerEvents();
+		this.getCommand("setCapturePoint").setExecutor(new SetCpPoint(this));
+		this.getCommand("addPlayers").setExecutor(new AddPlayers(this, t1));
+		this.getCommand("removePlayers").setExecutor(new SetCpPoint(this));
     }
     
     public void registerEvents(){
@@ -58,6 +65,7 @@ public final class MCDominion extends JavaPlugin {
     
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    	
     	if (cmd.getName().equalsIgnoreCase("addPlayer")) { 
     		if (args.length != 2){
     			sender.sendMessage("Incorrect amount of args, usage: /addPlayer <playerName><team>");
@@ -90,18 +98,7 @@ public final class MCDominion extends JavaPlugin {
     		}
     		return true;
     	} 
-    	else if (cmd.getName().equalsIgnoreCase("setCapturePoint")) {
-    		if (args.length != 2){
-    			sender.sendMessage("Incorrect amount of args, usage: /setCapturePoint <size>");
-    		}
-    		if (!(sender instanceof Player)) {
-    			sender.sendMessage("This command can only be run by a player.");
-    		} else {
-    			Player player = (Player) sender;
-    			CapturePoint cp = new CapturePoint(args[0], args[1], player.getLocation());
-    		}
-    		return true;
-    	} 
+    	
     	return false;
     }
     

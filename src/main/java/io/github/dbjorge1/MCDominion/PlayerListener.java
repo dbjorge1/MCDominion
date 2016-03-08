@@ -3,6 +3,7 @@ package io.github.dbjorge1.MCDominion;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -23,11 +24,17 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void eggThrow(PlayerEggThrowEvent e){
 		Player p = e.getPlayer();
-		e.setNumHatches((byte) 40);
-		//p.getWorld().strikeLightning(p.getLocation());
-		//p.sendMessage(ChatColor.RED +"THROW ANOTHER EGG AND I WILL FUCKING HANG YOU BY YOUR ENTRAILS");
+		//e.setNumHatches((byte) 40);
+		//p.getWorld().strikeLightning(p.getLocation().add(0, 0, 0));
+	
+		//p.getWorld().createExplosion(e.getEgg().getLocation(), 2F);
+		//e.setHatchingType(EntityType.COW);
+		e.setHatchingType(null);
+		
+		p.sendMessage(ChatColor.RED +"THROW ANOTHER EGG AND I WILL FUCKING HANG YOU BY YOUR ENTRAILS");
 		
 	}
+	
 
 /*
 	CapturePoint point = MCDominion.getCapturePoint();
